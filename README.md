@@ -164,28 +164,32 @@ A chat interface allows users to interact with the model. It’s where the magic
 import torch
 
 def chat_with_model(model, tokenizer):
+    # Ensure the model is on the correct device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device)
+
     while True:
         user_input = input("You: ")
         if user_input.lower() in ["exit", "quit"]:
-            print("Goodbye!")
             break
 
-        # Encode the input and generate a response
-        input_ids = tokenizer.encode(user_input, return_tensors="pt")
+        # Tokenize input and move it to the same device as the model
+        input_ids = tokenizer.encode(user_input, return_tensors="pt").to(device)
+
+        # Generate response
         response = model.generate(
             input_ids,
             max_length=50,
-            pad_token_id=tokenizer.eos_token_id
+            num_return_sequences=1,
+            pad_token_id=tokenizer.eos_token_id,
         )
 
-        # Decode and display the response
+        # Decode and print response
         decoded_response = tokenizer.decode(response[0], skip_special_tokens=True)
-        print(f"Bot: {decoded_response}")
+        print(f"ChatGPT: {decoded_response}")
 
-# Load the fine-tuned model and tokenizer
-model = GPT2LMHeadModel.from_pretrained("./small-gpt2-model")
-tokenizer = AutoTokenizer.from_pretrained("./small-gpt2-model")
 
+# Ensure `model` and `tokenizer` are properly initialized before calling this function
 chat_with_model(model, tokenizer)
 ```
 
