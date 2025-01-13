@@ -1,4 +1,4 @@
-# How to Build an LLM Like ChatGPT Using HuggingFace Transformers
+# How do you build an LLM like ChatGPT using HuggingFace Transformers?
 
 Large Language Models (LLMs) like ChatGPT have revolutionized how we interact with technology, enabling applications like customer support bots, content generation tools, and even creative writing assistants. Imagine asking ChatGPT to help you brainstorm ideas for a blog or debug your code, and it responds intelligently and contextually. Have you ever wondered how such a system is built? Let’s explore this step by step, like a story, to understand the fascinating journey of creating an LLM.
 
